@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경 이미지 웹페이지</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        body {
+            background-image: url('Night.jpg');
+            background-size: cover;
+            background-position: center 15%;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        main {
+            height: calc(100vh - 2rem);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, 528px);
+            grid-template-rows: repeat(2, 396px);
+            gap: 40px 70px;
+            position: absolute;
+            left: calc(50% + 29px); 
+            top: calc(50% - 40px);
+            transform: translate(-50%, -50%);
+        }
+
+        button {
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: none;
+            cursor: pointer;
+            color: transparent;
+            outline: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: background-image 0.3s ease;
+        }
+
+        /*image*/
+        #button1 {
+            background-image: url('201.jpg');
+        }
+
+        #button2 {
+            background-image: url('202.jpg');
+        }
+
+        #button3 {
+            background-image: url('101.jpg');
+        }
+
+        #button4 {
+            background-image: url('102.jpg');
+        }
+
+        /*hover*/
+        #button1:hover {
+            background-image: url('201_x.jpg');
+        }
+
+        #button2:hover {
+            background-image: url('202_x.jpg');
+        }
+
+        #button3:hover {
+            background-image: url('101_x.jpg');
+        }
+
+        #button4:hover {
+            background-image: url('102_x.jpg');
+        }
+
+        /*click_image*/
+        .clicked1 {
+            background-image: url('Frog.jpg') !important;
+        }
+
+        .clicked2 {
+            background-image: url('Mouse.jpg') !important;
+        }
+
+        .clicked3 {
+            background-image: url('Octopus.jpg') !important;
+        }
+
+        .clicked4 {
+            background-image: url('Friend.jpg') !important;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <!-- grid -->
+        <div class="button-container">
+            <button id="button1" data-state="default">버튼 1</button>
+            <button id="button2" data-state="default">버튼 2</button>
+            <button id="button3" data-state="default">버튼 3</button>
+            <button id="button4" data-state="default">버튼 4</button>
+        </div>
+    </main>
+
+    <!-- audio -->
+    <audio src="Wine.mp3" id="audio1" preload="auto"></audio>
+    <audio src="Love.mp3" id="audio2" preload="auto"></audio>
+    <audio src="Cats.mp3" id="audio3" preload="auto"></audio>
+    <audio src="Anime.mp3" id="audio4" preload="auto"></audio>
+
+    <!-- JavaScript -->
+    <script>
+        // click audio
+        function handleButtonClick(event) {
+            const button = event.currentTarget;
+            const state = button.getAttribute('data-state');
+            const buttonId = button.id;
+            const audioId = 'audio' + buttonId.replace('button', '');
+
+            // button audio image
+            const audio = document.getElementById(audioId);
+            if (state === 'default') {
+                button.setAttribute('data-state', 'clicked');
+                button.classList.add('clicked' + buttonId.replace('button', ''));
+                audio.play();
+            } else {
+                button.setAttribute('data-state', 'default');
+                button.classList.remove('clicked' + buttonId.replace('button', ''));
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            // Audio size
+                document.getElementById('audio1').volume = 0.3;
+                document.getElementById('audio2').volume = 0.8;
+                document.getElementById('audio3').volume = 0.3;
+                document.getElementById('audio4').volume = 0.3;
+        }
+
+        // click event
+        document.getElementById('button1').addEventListener('click', handleButtonClick);
+        document.getElementById('button2').addEventListener('click', handleButtonClick);
+        document.getElementById('button3').addEventListener('click', handleButtonClick);
+        document.getElementById('button4').addEventListener('click', handleButtonClick);
+    </script>
+</body>
+</html>
